@@ -1,7 +1,7 @@
 import time
 
 # HP, MAXHP, ATK, DEF, SPD, Lv, EXP
-character = [25, 25, 3, 1, 3, 1, 0]
+character = [25, 25, 1000, 1, 3, 1, 0]
 
 # Enemies 
 gslime = [10, 2, 2, 1, 12]
@@ -112,6 +112,7 @@ def gslime_encounter():
 def treeEncounter():
     time.sleep(1)
     print("\nWalking for a bit longer, something sinister seems to be looking at you.")
+    print("A giant tree blocks the way!")
     time.sleep(1)
     damageTree = damageCalculation(character, possessedTree)
     damagePlayer = damageCalculation(possessedTree, character)
@@ -122,7 +123,7 @@ def treeEncounter():
         print("You attack the giant tree and deals", damageTree, "damage!")
         time.sleep(1)
         print("The giant tree attacks you and deals", damagePlayer, "damage!")
-        sHP -= damagePlayer
+        sHP -= damageTree
         if (sHP <= 0):
             print("You won and gained", possessedTree[4],"EXP!")
             character[0] -= dmg
