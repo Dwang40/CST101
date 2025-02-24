@@ -1,7 +1,7 @@
 import time
 
 # HP, MAXHP, ATK, DEF, SPD, Lv, EXP
-character = [25, 25, 1000, 1, 3, 1, 0]
+character = [25, 25, 3, 1, 3, 1, 0]
 
 # Enemies 
 gslime = [10, 2, 2, 1, 12]
@@ -125,17 +125,20 @@ def treeEncounter():
         print("The giant tree attacks you and deals", damagePlayer, "damage!")
         sHP -= damageTree
         if (sHP <= 0):
+            time.sleep(1)
             print("You won and gained", possessedTree[4],"EXP!")
             character[0] -= dmg
             character[6] += possessedTree[4]
             if(checkExp(character) == True):
                 levelUp(character)
-            crossroadsF()
+            exit()
         pHP -= damagePlayer 
         dmg += damagePlayer
         if(pHP <= 0):
+            print("You lost! Better luck next time!")
             print("Thanks for playing my short demo!")
             exit()
     
 # Start the game
+print("Currently the only commands I have is \"stats\" which shows you your stats and the command \"end\" which ends the game.")
 start_game()
