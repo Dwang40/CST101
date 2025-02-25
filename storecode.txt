@@ -1,0 +1,15 @@
+def battle(player, enemy, stringE):
+    damageEnemy = playerDamage(character, gslime)
+    damagePlayer = enemyDamage(gslime, character)
+    if(speedCheck(player, enemy) == "player"):
+        print("You attack the", stringE,"and deals", damageEnemy, "damage!")
+        time.sleep(1)
+        print("The", stringE,"attacks you and deals", damagePlayer, "damage!")
+        time.sleep(1)
+        return [damagePlayer, damageEnemy]
+    else:
+        print("The", stringE,"attacks you and deals", damagePlayer, "damage!")
+        time.sleep(1)
+        print("You attack the", stringE,"and deals", damageEnemy, "damage!")
+        time.sleep(1)
+        return [damagePlayer, damageEnemy]

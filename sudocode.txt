@@ -1,0 +1,7 @@
+battle (enemy array, enemy name, dot name)
+while true
+if statement speed check
+prints statements
+removes player hp
+returns string (enemy won/ player won)
+
