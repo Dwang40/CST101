@@ -1,13 +1,15 @@
 import time
+import math
 
 # HP, MAXHP, ATK, DEF, SPD, Lv, EXP
-character = [25, 25, 3, 1, 3, 1, 0]
+character = [25, 25, 4, 2, 3, 1, 0]
 
 # Enemies 
-gslime = [10, 2, 2, 1, 12]
-rslime = [7, 4, 2, 2]
-goblin = [15, 3, 1, 1]
-possessedTree = [60, 3, 6, 1, 10000]
+# HP, ATK, DEF, SPD, EXP, DOT
+gslime = [10, 2, 2, 1, 12, 2]
+rslime = [7, 4, 2, 2, 15, 0]
+goblin = [15, 3, 1, 1, 20, 0]
+possessedTree = [60, 3, 6, 1, 10, 0]
 
 def stats():
     totalExp = character[5] * 10;
@@ -24,6 +26,12 @@ def checkExp(array):
     else:
         return False
 
+def restoreLife(int):
+    if (character[0] + int < character[1]):
+        character[0] += int
+    else:
+        character[0] = character[1]
+
 def levelUp(array):
     array[5] += 1
     array[6] -= (array[5]-1) * 10
@@ -34,7 +42,7 @@ def levelUp(array):
     print("you have gained 10 HP, 1 ATK and 1 DEF")
 
 def damageCalculation(array, array2):
-    damage = (array[2] * 2) - array2[3]
+    damage = math.floor((array[2] * 1.5) - array2[3])
     if(damage < 0):
         return 0;
     else:
@@ -46,7 +54,7 @@ def battle(array, array2):
 def start_game():
     print("Welcome to the Beginner's Forest!")
     time.sleep(1)
-    print("You find yourself at the entrance of an forest. This is where all adventurers start.")
+    print("You find yourself at the entrance of an forest. This is where all heroes begin their adventure.")
     time.sleep(1)
     choice1 = input("Do you enter the forest? (yes/no): ")
     
@@ -68,7 +76,7 @@ def crossroadsF():
     if choice2 == "left":
         gslime_encounter()
     if choice2 == "middle":
-        gslime_encounter()
+        campfire()
     elif choice2 == "right":
         treeEncounter()
     elif choice2 == "end":
@@ -135,9 +143,54 @@ def treeEncounter():
         pHP -= damagePlayer 
         dmg += damagePlayer
         if(pHP <= 0):
+            time.sleep(1)
             print("You lost! Better luck next time!")
+            time.sleep(1)
             print("Thanks for playing my short demo!")
             exit()
+
+def campfire():
+        print("\nWalking deeper into the forest, you come across a safe spot.")
+        time.sleep(1)
+        print("There seems to be no monsters around and a small campfire is visible.")
+        time.sleep(1)
+        campfire2()
+
+def campfire2():
+    choice = input("You decide to rest here. (rest/use points): ")
+    if (choice == "rest"):
+        time.sleep(1)
+        print("Sleeping near the campfire has restored 20 HP")
+        restoreLife(100)
+        crossroadsF()
+    if (choice == "use points"):
+        print("You have decided to use your skill points.") 
+        time.sleep(1)
+        print("What stat would you like to increase?")
+        time.sleep(1)
+        choice2 = input("(HP/ATK/DEF/SPD): ")
+        if(choice2 == "HP"):
+            print("You have gained 10 HP.")
+            character[1] += 10
+            crossroadsF()
+        if(choice2 == "ATK"):
+            print("You have gained 1 ATK.")
+            character[2] += 1
+            crossroadsF()
+        if(choice2 == "DEF"):
+            print("You have gained 1 DEF.")
+            character[3] += 1
+            crossroadsF()
+        if(choice2 == "SPD"):
+            print("You have gained 1 SPD.")
+            character[4] += 1
+            crossroadsF()
+    if(choice == "stats"):
+        time.sleep(1)
+        stats()
+        campfire2()
+    if(choice == "end"):
+        exit()
     
 # Start the game
 print("Currently the only commands I have is \"stats\" which shows you your stats and the command \"end\" which ends the game.")
